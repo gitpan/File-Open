@@ -1,0 +1,13 @@
+Changes
+lib/File/Open.pm
+Makefile.PL
+MANIFEST
+README
+t/00-load.t
+t/pod-coverage.t
+t/pod.t
+t/corners.t
+t/open.t
+t/pollute.t
+META.yml                                 Module YAML meta-data (added by MakeMaker)
+META.json                                Module JSON meta-data (added by MakeMaker)
