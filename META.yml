@@ -3,13 +3,13 @@ abstract: 'wrap open/sysopen and give them a nice and simple interface'
 author:
   - 'Lukas Mai <l.mai@web.de>'
 build_requires:
-  Dir::Self: 0
+  File::Spec: 0
   Test::Fatal: 0
   Test::More: 0
 configure_requires:
   ExtUtils::MakeMaker: 6.5501
 dynamic_config: 1
-generated_by: 'ExtUtils::MakeMaker version 6.58, CPAN::Meta::Converter version 2.110930001'
+generated_by: 'ExtUtils::MakeMaker version 6.59, CPAN::Meta::Converter version 2.112150'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -27,4 +27,4 @@ requires:
   perl: 5.006
   strict: 0
   warnings: 0
-version: 0.02
+version: 0.021

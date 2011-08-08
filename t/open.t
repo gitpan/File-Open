@@ -3,12 +3,21 @@ use strict;
 
 use Test::More tests => 89;
 
-use Dir::Self;
+use File::Spec;
 use Test::Fatal;
 
 use File::Open qw(fsysopen_nothrow fopen_nothrow fsysopen fopen);
 
-my $nofile = __DIR__ . '/I3XomCsu.txt';
+my $DIR = File::Spec->tmpdir;
+sub scratch {
+	File::Spec->catfile($DIR, $_[0])
+}
+
+my $stem = 'IeXomCsu';
+my $nofile;
+while (-e ($nofile = scratch "$stem.txt")) {
+	$stem++;
+}
 
 like $_, qr/\Q: $nofile: / for
 	exception { fopen $nofile },
@@ -40,8 +49,10 @@ is $_, undef for
 	fsysopen_nothrow($nofile, 'rw'),
 ;
 
-my $scratch = __DIR__ . '/SCRATCH.AAA';
+my $scratch = scratch 'SCRATCH.AAA';
 unlink $scratch;
+
+my $token = "${\rand}-$$";
 
 {
 	my $fh = fopen $scratch, 'w';
@@ -53,12 +64,12 @@ unlink $scratch;
 	ok close $fh;
 } {
 	my $fh = fopen $scratch, 'a';
-	ok print $fh "$scratch\n";
+	ok print $fh "$token\n$scratch\n";
 	ok close $fh;
 } {
 	my $fh = fopen $scratch;
 	my $data = do {local $/; readline $fh};
-	is $data, "$nofile\n$scratch\n";
+	is $data, "$nofile\n$token\n$scratch\n";
 	ok close $fh;
 }
 unlink $scratch;
@@ -73,12 +84,12 @@ unlink $scratch;
 	ok close $fh;
 } {
 	my $fh = fopen $scratch, 'ab';
-	ok print $fh "$scratch\n";
+	ok print $fh "$token\n$scratch\n";
 	ok close $fh;
 } {
 	my $fh = fopen $scratch, 'rb';
 	my $data = do {local $/; readline $fh};
-	is $data, "$nofile\n$scratch\n";
+	is $data, "$nofile\n$token\n$scratch\n";
 	ok close $fh;
 }
 unlink $scratch;
@@ -96,13 +107,13 @@ unlink $scratch;
 } {
 	my $fh = fopen_nothrow $scratch, 'a';
 	ok $fh;
-	ok print $fh "$scratch\n";
+	ok print $fh "$token\n$scratch\n";
 	ok close $fh;
 } {
 	my $fh = fopen_nothrow $scratch;
 	ok $fh;
 	my $data = do {local $/; readline $fh};
-	is $data, "$nofile\n$scratch\n";
+	is $data, "$nofile\n$token\n$scratch\n";
 	ok close $fh;
 }
 unlink $scratch;
@@ -120,13 +131,13 @@ unlink $scratch;
 } {
 	my $fh = fopen_nothrow $scratch, 'ab';
 	ok $fh;
-	ok print $fh "$scratch\n";
+	ok print $fh "$token\n$scratch\n";
 	ok close $fh;
 } {
 	my $fh = fopen_nothrow $scratch, 'rb';
 	ok $fh;
 	my $data = do {local $/; readline $fh};
-	is $data, "$nofile\n$scratch\n";
+	is $data, "$nofile\n$token\n$scratch\n";
 	ok close $fh;
 }
 unlink $scratch;
@@ -146,12 +157,12 @@ unlink $scratch;
 	like exception { fsysopen $scratch, 'w', {creat => 0666, excl => 1} }, qr/\Q: $scratch: /;
 } {
 	my $fh = fsysopen $scratch, 'w', {creat => 0, append => 1};
-	ok print $fh "$scratch\n";
+	ok print $fh "$token\n$scratch\n";
 	ok close $fh;
 } {
 	my $fh = fsysopen $scratch, 'r';
 	my $data = do {local $/; readline $fh};
-	is $data, "$nofile\n$scratch\n";
+	is $data, "$nofile\n$token\n$scratch\n";
 	ok close $fh;
 }
 unlink $scratch;
@@ -175,13 +186,13 @@ unlink $scratch;
 } {
 	my $fh = fsysopen_nothrow $scratch, 'w', {creat => 0, append => 1};
 	ok $fh;
-	ok print $fh "$scratch\n";
+	ok print $fh "$token\n$scratch\n";
 	ok close $fh;
 } {
 	my $fh = fsysopen_nothrow $scratch, 'r';
 	ok $fh;
 	my $data = do {local $/; readline $fh};
-	is $data, "$nofile\n$scratch\n";
+	is $data, "$nofile\n$token\n$scratch\n";
 	ok close $fh;
 }
 unlink $scratch;
