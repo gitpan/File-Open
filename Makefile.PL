@@ -19,6 +19,7 @@ WriteMakefile(
         'Test::More' => 0,
         'Test::Fatal' => 0,
         'File::Spec' => 0,
+        'File::Temp' => 0,
     },
     PREREQ_PM => {
         'warnings' => 0,
@@ -27,6 +28,7 @@ WriteMakefile(
         'File::Basename' => 0,
         'Carp' => 0,
         'Fcntl' => 0,
+        'Errno' => 0,
     },
     dist                => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
     clean               => { FILES => 'File-Open-*' },
