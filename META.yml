@@ -8,25 +8,22 @@ build_requires:
   Test::Fatal: 0
   Test::More: 0
 configure_requires:
-  ExtUtils::MakeMaker: 6.5501
-dynamic_config: 1
-generated_by: 'ExtUtils::MakeMaker version 6.59, CPAN::Meta::Converter version 2.112150'
+  ExtUtils::MakeMaker: 6.30
+dynamic_config: 0
+generated_by: 'Dist::Zilla version 4.200015, CPAN::Meta::Converter version 2.112150'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: 1.4
 name: File-Open
-no_index:
-  directory:
-    - t
-    - inc
 requires:
   Carp: 0
   Errno: 0
   Exporter: 0
   Fcntl: 0
   File::Basename: 0
-  perl: 5.006
   strict: 0
   warnings: 0
-version: 0.03
+resources:
+  repository: git://github.com/mauke/File-Open.git
+version: 0.031

@@ -1,14 +1,16 @@
 Changes
-lib/File/Open.pm
-Makefile.PL
+LICENSE
 MANIFEST
+META.json
+META.yml
+Makefile.PL
 README
+dist.ini
+lib/File/Open.pm
 t/00-load.t
-t/pod-coverage.t
-t/pod.t
 t/corners.t
+t/null.t
 t/open.t
 t/pollute.t
-t/null.t
-META.yml                                 Module YAML meta-data (added by MakeMaker)
-META.json                                Module JSON meta-data (added by MakeMaker)
+t/release-pod-coverage.t
+t/release-pod-syntax.t

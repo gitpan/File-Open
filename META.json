@@ -3,8 +3,8 @@
    "author" : [
       "Lukas Mai <l.mai@web.de>"
    ],
-   "dynamic_config" : 1,
-   "generated_by" : "ExtUtils::MakeMaker version 6.59, CPAN::Meta::Converter version 2.112150",
+   "dynamic_config" : 0,
+   "generated_by" : "Dist::Zilla version 4.200015, CPAN::Meta::Converter version 2.112150",
    "license" : [
       "perl_5"
    ],
@@ -13,24 +13,10 @@
       "version" : "2"
    },
    "name" : "File-Open",
-   "no_index" : {
-      "directory" : [
-         "t",
-         "inc"
-      ]
-   },
    "prereqs" : {
-      "build" : {
-         "requires" : {
-            "File::Spec" : 0,
-            "File::Temp" : 0,
-            "Test::Fatal" : 0,
-            "Test::More" : 0
-         }
-      },
       "configure" : {
          "requires" : {
-            "ExtUtils::MakeMaker" : "6.5501"
+            "ExtUtils::MakeMaker" : "6.30"
          }
       },
       "runtime" : {
@@ -40,12 +26,27 @@
             "Exporter" : 0,
             "Fcntl" : 0,
             "File::Basename" : 0,
-            "perl" : "5.006",
             "strict" : 0,
             "warnings" : 0
+         }
+      },
+      "test" : {
+         "requires" : {
+            "File::Spec" : 0,
+            "File::Temp" : 0,
+            "Test::Fatal" : 0,
+            "Test::More" : 0
          }
       }
    },
    "release_status" : "stable",
-   "version" : "0.03"
+   "resources" : {
+      "repository" : {
+         "type" : "git",
+         "url" : "git://github.com/mauke/File-Open.git",
+         "web" : "https://github.com/mauke/File-Open"
+      }
+   },
+   "version" : "0.031"
 }
+

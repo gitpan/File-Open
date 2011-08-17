@@ -1,46 +1,13 @@
-File-Open
-
-Wrap open/sysopen and give them a nice and simple interface.
 
 
-INSTALLATION
+This archive contains the distribution File-Open,
+version 0.031:
 
-To install this module, run the following commands:
+  wrap open/sysopen and give them a nice and simple interface
 
-	perl Makefile.PL
-	make
-	make test
-	make install
+This software is copyright (c) 2011 by Lukas Mai.
 
-SUPPORT AND DOCUMENTATION
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
-After installing, you can find documentation for this module with the
-perldoc command.
-
-    perldoc File::Open
-
-You can also look for information at:
-
-    RT, CPAN's request tracker
-        http://rt.cpan.org/NoAuth/Bugs.html?Dist=File-Open
-
-    AnnoCPAN, Annotated CPAN documentation
-        http://annocpan.org/dist/File-Open
-
-    CPAN Ratings
-        http://cpanratings.perl.org/d/File-Open
-
-    Search CPAN
-        http://search.cpan.org/dist/File-Open/
-
-
-COPYRIGHT AND LICENCE
-
-Copyright (C) 2011 Lukas Mai
-
-This program is free software; you can redistribute it and/or modify it
-under the terms of either: the GNU General Public License as published
-by the Free Software Foundation; or the Artistic License.
-
-See http://dev.perl.org/licenses/ for more information.
 

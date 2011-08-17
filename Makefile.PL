@@ -1,35 +1,62 @@
+
 use strict;
 use warnings;
-use ExtUtils::MakeMaker;
 
-WriteMakefile(
-    NAME                => 'File::Open',
-    AUTHOR              => q{Lukas Mai <l.mai@web.de>},
-    VERSION_FROM        => 'lib/File/Open.pm',
-    ABSTRACT_FROM       => 'lib/File/Open.pm',
-    ($ExtUtils::MakeMaker::VERSION >= 6.3002
-      ? ('LICENSE'=> 'perl')
-      : ()),
-    MIN_PERL_VERSION => '5.006',
-    PL_FILES            => {},
-    CONFIGURE_REQUIRES => {
-    	'ExtUtils::MakeMaker' => '6.5501',
-    },
-    BUILD_REQUIRES => {
-        'Test::More' => 0,
-        'Test::Fatal' => 0,
-        'File::Spec' => 0,
-        'File::Temp' => 0,
-    },
-    PREREQ_PM => {
-        'warnings' => 0,
-        'strict' => 0,
-        'Exporter' => 0,
-        'File::Basename' => 0,
-        'Carp' => 0,
-        'Fcntl' => 0,
-        'Errno' => 0,
-    },
-    dist                => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
-    clean               => { FILES => 'File-Open-*' },
+
+
+use ExtUtils::MakeMaker 6.30;
+
+
+
+my %WriteMakefileArgs = (
+  'ABSTRACT' => 'wrap open/sysopen and give them a nice and simple interface',
+  'AUTHOR' => 'Lukas Mai <l.mai@web.de>',
+  'BUILD_REQUIRES' => {
+    'File::Spec' => '0',
+    'File::Temp' => '0',
+    'Test::Fatal' => '0',
+    'Test::More' => '0'
+  },
+  'CONFIGURE_REQUIRES' => {
+    'ExtUtils::MakeMaker' => '6.30'
+  },
+  'DISTNAME' => 'File-Open',
+  'EXE_FILES' => [],
+  'LICENSE' => 'perl',
+  'NAME' => 'File::Open',
+  'PREREQ_PM' => {
+    'Carp' => '0',
+    'Errno' => '0',
+    'Exporter' => '0',
+    'Fcntl' => '0',
+    'File::Basename' => '0',
+    'strict' => '0',
+    'warnings' => '0'
+  },
+  'VERSION' => '0.031',
+  'test' => {
+    'TESTS' => 't/*.t'
+  }
 );
+
+
+unless ( eval { ExtUtils::MakeMaker->VERSION(6.56) } ) {
+  my $br = delete $WriteMakefileArgs{BUILD_REQUIRES};
+  my $pp = $WriteMakefileArgs{PREREQ_PM};
+  for my $mod ( keys %$br ) {
+    if ( exists $pp->{$mod} ) {
+      $pp->{$mod} = $br->{$mod} if $br->{$mod} > $pp->{$mod};
+    }
+    else {
+      $pp->{$mod} = $br->{$mod};
+    }
+  }
+}
+
+delete $WriteMakefileArgs{CONFIGURE_REQUIRES}
+  unless eval { ExtUtils::MakeMaker->VERSION(6.52) };
+
+WriteMakefile(%WriteMakefileArgs);
+
+
+
