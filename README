@@ -1,11 +1,11 @@
 
 
 This archive contains the distribution File-Open,
-version 0.031:
+version 0.032:
 
   wrap open/sysopen and give them a nice and simple interface
 
-This software is copyright (c) 2011 by Lukas Mai.
+This software is copyright (c) 2013 by Lukas Mai.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
