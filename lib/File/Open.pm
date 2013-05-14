@@ -4,7 +4,7 @@ use strict;
 use warnings;
 BEGIN { warnings->import(FATAL => 'layer') if $] >= 5.008; }
 
-*VERSION = \'0.032';
+*VERSION = \'0.040';
 
 use File::Basename qw(basename);
 use Carp qw(croak);
@@ -41,9 +41,15 @@ sub _open {
 		return undef;
 	}
 
-	open my $fh, $emode, $file or return undef;
+	unless (defined $layers) {
+		# grab our caller's 'use open' settings
+		my $hints = (caller 1)[10];
+		my $key = $emode =~ />/ ? 'open>' : 'open<';
+		$layers = $hints->{$key};
+	}
+
+	open my $fh, $emode . (defined $layers ? " $layers" : ''), $file or return undef;
 	binmode $fh if $b;
-	binmode $fh, $layers if defined $layers;
 	$fh
 }
 
@@ -202,11 +208,16 @@ This will cause L<binmode|perlfunc/binmode> to be called on the filehandle.
 
 If you don't specify a MODE, it defaults to C<'r'>.
 
-If you pass LAYERS, C<fopen> will call C<binmode $fh, LAYERS> on the newly
-opened filehandle. This gives you greater control than the simple C<'b'> in
-MODE. For example, to read from a UTF-8 file:
+If you pass LAYERS, C<fopen> will combine it with the open mode in the
+underlying L<open|perlfunc/open> call. This gives you greater control than the
+simple C<'b'> in MODE (which is equivalent to passing C<:raw> as LAYERS). For
+example, to read from a UTF-8 file:
 
   my $fh = fopen $file, 'r', ':encoding(UTF-8)';
+  # does
+  #   open my $fh, '<:encoding(UTF-8)', $file
+  # under the covers
+ 
   while (my $line = readline $fh) {
       ...
   }

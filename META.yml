@@ -8,6 +8,7 @@ build_requires:
   IO::Handle: 0
   Test::Fatal: 0
   Test::More: 0
+  open: 0
 configure_requires:
   ExtUtils::MakeMaker: 6.30
 dynamic_config: 0
@@ -27,4 +28,4 @@ requires:
   warnings: 0
 resources:
   repository: git://github.com/mauke/File-Open.git
-version: 0.032
+version: 0.040
