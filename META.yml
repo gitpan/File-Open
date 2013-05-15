@@ -4,20 +4,23 @@ author:
   - 'Lukas Mai <l.mai@web.de>'
 build_requires:
   File::Spec: 0
-  File::Temp: 0
+  File::Temp: 0.19
   IO::Handle: 0
   Test::Fatal: 0
   Test::More: 0
-  open: 0
 configure_requires:
-  ExtUtils::MakeMaker: 6.30
-dynamic_config: 0
-generated_by: 'Dist::Zilla version 4.300034, CPAN::Meta::Converter version 2.130880'
+  ExtUtils::MakeMaker: 6.56
+dynamic_config: 1
+generated_by: 'ExtUtils::MakeMaker version 6.66, CPAN::Meta::Converter version 2.130880'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: 1.4
 name: File-Open
+no_index:
+  directory:
+    - t
+    - inc
 requires:
   Carp: 0
   Errno: 0
@@ -26,6 +29,5 @@ requires:
   File::Basename: 0
   strict: 0
   warnings: 0
-resources:
-  repository: git://github.com/mauke/File-Open.git
-version: 0.040
+resources: {}
+version: 0.100

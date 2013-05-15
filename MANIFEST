@@ -1,11 +1,8 @@
 Changes
-LICENSE
 MANIFEST
-META.json
-META.yml
+MANIFEST.SKIP
 Makefile.PL
 README
-dist.ini
 lib/File/Open.pm
 t/00-load.t
 t/corners.t
@@ -14,5 +11,5 @@ t/null.t
 t/open-func.t
 t/open-meth.t
 t/pollute.t
-t/release-pod-coverage.t
-t/release-pod-syntax.t
+META.yml                                 Module YAML meta-data (added by MakeMaker)
+META.json                                Module JSON meta-data (added by MakeMaker)

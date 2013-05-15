@@ -4,7 +4,7 @@ use strict;
 use warnings;
 BEGIN { warnings->import(FATAL => 'layer') if $] >= 5.008; }
 
-*VERSION = \'0.040';
+*VERSION = \'0.100';
 
 use File::Basename qw(basename);
 use Carp qw(croak);
@@ -224,6 +224,11 @@ example, to read from a UTF-8 file:
 
 See L<PerlIO> and L<Encode::Supported> for a list of available layers and
 encoding names, respectively.
+
+If you don't pass LAYERS, C<fopen> will use the default layers set via
+C<use open ...>, if any (see L<open>). Default layers aren't supported on old
+perls (i.e. anything before 5.10.0); on those you'll have to pass an explicit
+LAYERS argument.
 
 =item fopen_nothrow FILE
 

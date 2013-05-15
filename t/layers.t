@@ -1,7 +1,11 @@
 use warnings;
 use strict;
 
-use Test::More tests => 18;
+use Test::More
+	$] >= 5.010
+		? (tests => 18)
+		: (skip_all => "'use open' integration requires perl v5.10+")
+;
 
 use File::Spec qw(tempfile);
 use File::Temp;
