@@ -8,10 +8,9 @@ build_requires:
   IO::Handle: 0
   Test::Fatal: 0
   Test::More: 0
-configure_requires:
-  ExtUtils::MakeMaker: 6.56
+  open: 0
 dynamic_config: 1
-generated_by: 'ExtUtils::MakeMaker version 6.66, CPAN::Meta::Converter version 2.130880'
+generated_by: 'ExtUtils::MakeMaker version 6.66, CPAN::Meta::Converter version 2.131560'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -29,5 +28,6 @@ requires:
   File::Basename: 0
   strict: 0
   warnings: 0
-resources: {}
-version: 0.100
+resources:
+  repository: git://github.com/mauke/File-Open.git
+version: 0.100_01
