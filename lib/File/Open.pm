@@ -4,8 +4,7 @@ use strict;
 use warnings;
 BEGIN { warnings->import(FATAL => 'layer') if $] >= 5.008; }
 
-our $VERSION = '0.100_01';
-$VERSION = eval $VERSION;
+our $VERSION = '1.0';
 
 use File::Basename qw(basename);
 use Carp qw(croak);
@@ -13,7 +12,6 @@ use Fcntl ();
 use Errno ();
 use Exporter qw(import);
 
-our @EXPORT;
 our @EXPORT_OK = qw(fopen fopen_nothrow fsysopen fsysopen_nothrow);
 
 sub _mode {
@@ -21,11 +19,11 @@ sub _mode {
 }
 
 my %modemap = (
-	_mode(qw[< r]),
-	_mode(qw[> w]),
-	_mode(qw[>> a]),
-	_mode(qw[+< r+]),
-	_mode(qw[+> w+]),
+	_mode(qw[<   r ]),
+	_mode(qw[>   w ]),
+	_mode(qw[>>  a ]),
+	_mode(qw[+<  r+]),
+	_mode(qw[+>  w+]),
 	_mode(qw[+>> a+]),
 );
 
@@ -33,8 +31,9 @@ sub _open {
 	my ($func, $file, $mode, $layers) = @_;
 	@_ < 2 and croak "Not enough arguments for $func";
 	@_ > 4 and croak "Too many arguments for $func";
-	defined $mode or $mode = '<';
-	my $b = $mode =~ s/(?<=.)b//;
+	$mode = '<' if !defined $mode;
+
+	my $binary = $mode =~ s/(?<=.)b//;
 	my $emode = $modemap{$mode} or croak "Unknown $func() mode '$mode'";
 
 	if ($file =~ /\0/) {
@@ -50,20 +49,18 @@ sub _open {
 	}
 
 	open my $fh, $emode . (defined $layers ? " $layers" : ''), $file or return undef;
-	binmode $fh if $b;
+	binmode $fh if $binary;
 	$fh
 }
 
 sub fopen_nothrow {
-	unshift @_, 'fopen_nothrow';
-	&_open
+	_open('fopen_nothrow', @_)
 }
 
 my $prog = basename $0;
 
 sub fopen {
-	unshift @_, 'fopen';
-	&_open || die "$prog: $_[1]: $!\n"
+	_open('fopen', @_) || die "$prog: $_[0]: $!\n"
 }
 
 sub _sysopen {
@@ -72,14 +69,14 @@ sub _sysopen {
 	@_ > 4 and croak "Too many arguments for $func";
 
 	my $emode =
-		$mode eq 'r' ? Fcntl::O_RDONLY() :
-		$mode eq 'w' ? Fcntl::O_WRONLY() :
-		$mode eq 'rw' ? Fcntl::O_RDWR() :
+		$mode eq 'r'  ? Fcntl::O_RDONLY() :
+		$mode eq 'w'  ? Fcntl::O_WRONLY() :
+		$mode eq 'rw' ? Fcntl::O_RDWR()   :
 		croak "Unknown $func() mode '$mode'"
 	;
+	$flags = {} if !defined $flags;
 
 	my $perms = 0;
-	defined $flags or $flags = {};
 
 	for my $k (keys %$flags) {
 		my $v = !!$flags->{$k};
@@ -116,13 +113,11 @@ sub _sysopen {
 }
 
 sub fsysopen_nothrow {
-	unshift @_, 'fsysopen_nothrow';
-	&_sysopen
+	_sysopen('fsysopen_nothrow', @_)
 }
 
 sub fsysopen {
-	unshift @_, 'fsysopen';
-	&_sysopen || die "$prog: $_[1]: $!\n"
+	_sysopen('fsysopen', @_) || die "$prog: $_[0]: $!\n"
 }
 
 
