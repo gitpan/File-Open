@@ -4,7 +4,7 @@ use strict;
 use warnings;
 BEGIN { warnings->import(FATAL => 'layer') if $] >= 5.008; }
 
-our $VERSION = '1.0';
+our $VERSION = '1.0001';
 
 use File::Basename qw(basename);
 use Carp qw(croak);
@@ -146,6 +146,22 @@ File::Open - wrap open/sysopen and give them a nice and simple interface
 
  my $fh = fsysopen_nothrow $file, $mode or die "$0: $file: $!\n";
  my $fh = fsysopen_nothrow $file, $mode, \%flags or die "$0: $file: $!\n";
+
+=head1 EXAMPLES
+
+ sub slurp {
+   local $/;
+   readline $_[0]
+ }
+ 
+ my $contents = slurp fopen 'input.txt';
+
+ print { fopen 'output.txt', 'w' } "hello, world!\n";
+ fopen('output.txt', 'a')->print("mtfnpy\n");  # handles are IO::Handle objects
+
+ my $lock_file = 'my.lock';
+ my $lock_fh = fsysopen $lock_file, 'w', { creat => 0644 };
+ flock $lock_fh, LOCK_EX or die "$0: $lock_file: $!\n";
 
 =head1 DESCRIPTION
 
